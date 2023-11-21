@@ -1,0 +1,63 @@
+.sound-wave {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .bar {
+    animation-name: wave-lg;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+    border-radius: 7px;
+    background: #f1f968;
+    margin: 0 9px;
+    height: 20px;
+    width: 10px;
+  
+    &:nth-child(-n + 7),
+    &:nth-last-child(-n + 7) {
+      animation-name: wave-md;
+    }
+  
+    &:nth-child(-n + 3),
+    &:nth-last-child(-n + 3) {
+      animation-name: wave-sm;
+    }
+  }
+
+  
+  
+  @keyframes wave-sm {
+    0% {
+      opacity: 0.35;
+      height: 30px;
+    }
+    100% {
+      opacity: 1;
+      height: 75px;
+    }
+  }
+  
+  @keyframes wave-md {
+    0% {
+      opacity: 0.35;
+      height: 95px;
+    }
+    100% {
+      opacity: 1;
+      height: 140px;
+    }
+  }
+  
+  @keyframes wave-lg {
+    0% {
+      opacity: 0.35;
+      height: 145px;
+    }
+    100% {
+      opacity: 1;
+      height: 210px;
+    }
+  }

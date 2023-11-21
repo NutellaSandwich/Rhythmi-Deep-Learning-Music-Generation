@@ -1,0 +1,354 @@
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes wobble-hor-bottom {
+  0%,
+  to {
+    transform: translateX(0);
+    transform-origin: 50% 50%;
+  }
+  15% {
+    transform: translateX(-30px) rotate(-6deg);
+  }
+  30% {
+    transform: translateX(15px) rotate(6deg);
+  }
+  45% {
+    transform: translateX(-15px) rotate(-3.6deg);
+  }
+  60% {
+    transform: translateX(9px) rotate(2.4deg);
+  }
+  75% {
+    transform: translateX(-6px) rotate(-1.2deg);
+  }
+}
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.homePageChild {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-lightpink-100);
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+}
+.vectorIcon {
+  align-self: stretch;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  height: 685.33px;
+  flex-shrink: 0;
+}
+.vectorWrapper {
+  position: absolute;
+  top: 36px;
+  left: 0;
+  width: 1280.74px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.about {
+  align-self: stretch;
+  position: relative;
+}
+.about:hover {
+  font-size: var(--font-size-8xl);
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.frame1 {
+  width: 304px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.frame1:hover {
+  width: 456px;
+  gap: var(--gap-0);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.frame1,
+.frameWrapper,
+.howItWorks {
+  display: flex;
+  align-items: center;
+}
+.frameWrapper {
+  text-decoration: none;
+  position: absolute;
+  top: 18.67px;
+  left: 72px;
+  width: 90.67px;
+  height: 34px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  cursor: pointer;
+  color: inherit;
+}
+.howItWorks {
+  flex: 1;
+  position: relative;
+  justify-content: center;
+  height: 26.67px;
+}
+.howItWorks:hover {
+  font-size: var(--font-size-8xl);
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.createWrapper,
+.howItWorksWrapper,
+.libraryWrapper {
+  text-decoration: none;
+  position: absolute;
+  top: 20.33px;
+  left: 162.67px;
+  width: 191.33px;
+  height: 32.67px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2.6666667461395264px 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: inherit;
+}
+.createWrapper,
+.libraryWrapper {
+  top: 21.67px;
+  left: 354px;
+  width: 105.33px;
+  height: 30.67px;
+  padding: 0.6666666865348816px 0;
+}
+.createWrapper {
+  top: 21px;
+  left: 463.74px;
+}
+.icons8User961 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56.67px;
+  height: 56.67px;
+  object-fit: cover;
+}
+.icons8User961:hover {
+  width: 56px;
+  cursor: pointer;
+}
+.logIn,
+.signUp,
+.vectorIcon2{
+  position: absolute;
+  top: 10px;
+  left:9px;
+  width: 76px;
+  height: 76.4px;
+}
+.logIn,
+.signUp {
+  top: 18px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 26px;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.logIn:hover,
+.signUp:hover {
+  font-size: var(--font-size-lgi);
+}
+.signUp {
+  top: 45px;
+  left: 1px;
+  width: 92px;
+  height: 37px;
+}
+.vectorParent {
+  position: absolute;
+  top: 44px;
+  left: -19px;
+  width: 89px;
+  height: 97px;
+  overflow: hidden;
+  display: none;
+  opacity: 0;
+}
+.vectorParent.animate {
+  animation: 0.2s linear 0s 1 normal forwards fade-in;
+}
+.loginwrapper {
+  position: absolute;
+  top: 10px;
+  left: 1215px;
+  width: 56.67px;
+  height: 56.67px;
+  font-size: var(--font-size-base);
+}
+.loginwrapper:hover .signUp,
+.loginwrapper:hover .vectorParent {
+  display: flex;
+}
+.vectorIcon1 {
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 44px;
+  height: 44px;
+}
+.vectorIcon1:hover {
+  border-radius: var(--br-341xl);
+}
+.homebutton {
+  top: 17px;
+  left: 20px;
+  width: 38px;
+  height: 38px;
+}
+.homebutton:hover,
+.vectorIcon1:hover {
+  width: 44px;
+  height: 44px;
+}
+.frame,
+.homebutton,
+.rhythmi {
+  position: absolute;
+}
+.frame {
+  top: 0;
+  left: 0;
+  width: 1280.74px;
+  height: 720.67px;
+  overflow: hidden;
+  text-align: center;
+}
+.rhythmi {
+  top: 320px;
+  left: 42px;
+  font-size: 133.33px;
+  display: inline-block;
+  width: 830.67px;
+  height: 462.67px;
+}
+.homePageItem {
+  position: absolute;
+  top: 360px;
+  left: 34px;
+  width: 585.33px;
+  height: 145.33px;
+  overflow: hidden;
+}
+.yourMusicalPotential {
+  position: absolute;
+  top: -0.67px;
+  left: 2.67px;
+}
+.yourMusicalPotentialUnleasWrapper {
+  position: absolute;
+  top: 501.33px;
+  left: 39.33px;
+  width: 731.33px;
+  height: 59.33px;
+  overflow: hidden;
+  font-size: 42.67px;
+}
+.aiBasedEducational {
+  align-self: stretch;
+  position: relative;
+}
+.aiBasedEducationalAndCreatWrapper {
+  position: absolute;
+  top: 621.33px;
+  left: 45.33px;
+  width: 490.67px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 var(--padding-11xs);
+  box-sizing: border-box;
+}
+.createPiece {
+  position: relative;
+  font-size: var(--font-size-5xl);
+  font-family: var(--font-poppins);
+  color: var(--color-white);
+  text-align: center;
+  cursor: pointer;
+}
+.createPieceWrapper {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: var(--color-lightpink-300);
+  position: absolute;
+  top: 564.67px;
+  left: calc(50% - 593.17px);
+  border-radius: 16.67px;
+  width: 228.67px;
+  height: 54.67px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.createPieceWrapper:hover {
+  background-color: var(--color-rosybrown-100);
+  animation: 1s ease 0s 1 normal none wobble-hor-bottom;
+  opacity: 1;
+}
+.createPieceWrapper:active {
+  background-color: var(--color-rosybrown-200);
+}
+.homePage,
+.homepage {
+  position: relative;
+  width: 1281px;
+  height: 720px;
+}
+.homepage {
+  background-color: var(--color-white);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  opacity: 0;
+  text-align: left;
+  font-size: var(--font-size-5xl);
+  color: var(--color-white);
+  font-family: var(--font-poppins);
+}
+.homepage.animate {
+  animation: 0.2s ease 0s 1 normal forwards slide-in-left;
+}

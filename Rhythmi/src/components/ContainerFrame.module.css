@@ -1,0 +1,194 @@
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.about {
+  align-self: stretch;
+  position: relative;
+}
+.about:hover {
+  font-size: var(--font-size-8xl);
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.frame1 {
+  width: 304px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.frame1:hover {
+  width: 456px;
+  gap: var(--gap-0);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.frame1,
+.frameWrapper,
+.howItWorks {
+  display: flex;
+  align-items: center;
+}
+.frameWrapper {
+  text-decoration: none;
+  position: absolute;
+  top: 22.67px;
+  left: 69.33px;
+  width: 90.67px;
+  height: 34px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  cursor: pointer;
+  color: inherit;
+}
+.howItWorks {
+  flex: 1;
+  position: relative;
+  justify-content: center;
+  height: 26.67px;
+}
+.howItWorks:hover {
+  font-size: var(--font-size-8xl);
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.howItWorksWrapper,
+.libraryWrapper {
+  text-decoration: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  color: inherit;
+}
+.howItWorksWrapper {
+  position: absolute;
+  top: 24.33px;
+  left: 160px;
+  width: 191.33px;
+  height: 32.67px;
+  padding: 2.6666667461395264px 0;
+  cursor: pointer;
+}
+.libraryWrapper {
+  top: 25.67px;
+  left: 351.33px;
+  width: 105.33px;
+  height: 30.67px;
+  padding: 0.6666666865348816px 0;
+}
+.createWrapper,
+.libraryWrapper,
+.vectorIcon {
+  position: absolute;
+  cursor: pointer;
+}
+.createWrapper {
+  text-decoration: none;
+  top: 26px;
+  left: 457px;
+  width: 105.33px;
+  height: 30.67px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.6666666865348816px 0;
+  box-sizing: border-box;
+  color: inherit;
+}
+.vectorIcon {
+  top: 19px;
+  left: 15px;
+  width: 44px;
+  height: 44px;
+}
+.vectorIcon:hover {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--br-341xl);
+  box-shadow: 0 4px 4px 2px rgba(0, 0, 0, 0.25);
+}
+.icons8User961 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56.67px;
+  height: 56.67px;
+  object-fit: cover;
+}
+.icons8User961:hover {
+  width: 56px;
+  cursor: pointer;
+}
+.logIn,
+.signUp {
+  position: absolute;
+  top: 15px;
+  left: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 26px;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.logIn:hover,
+.signUp:hover {
+  font-size: var(--font-size-lgi);
+}
+.signUp {
+  top: 45px;
+  left: -2px;
+  width: 92px;
+  height: 37px;
+}
+.logInParent {
+  position: absolute;
+  top: 44px;
+  left: -19px;
+  width: 89px;
+  height: 97px;
+  overflow: hidden;
+  display: none;
+  opacity: 0;
+}
+.logInParent.animate {
+  animation: 0.2s linear 0s 1 normal forwards fade-in;
+}
+.loginwrapper {
+  position: absolute;
+  top: 13px;
+  left: 1209px;
+  width: 56.67px;
+  height: 56.67px;
+  font-size: var(--font-size-base);
+}
+.loginwrapper:hover .logInParent,
+.loginwrapper:hover .signUp {
+  display: flex;
+}
+.frame {
+  align-self: stretch;
+  position: relative;
+  border-radius: 6.67px;
+  background-color: var(--color-lightpink-400);
+  height: 80px;
+  overflow: hidden;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: var(--font-size-5xl);
+  color: var(--color-white);
+  font-family: var(--font-poppins);
+}

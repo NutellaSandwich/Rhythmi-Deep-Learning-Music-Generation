@@ -1,0 +1,61 @@
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.frameIcon,
+.frameIcon1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1280px;
+  height: 308.67px;
+  overflow: hidden;
+}
+.frameIcon1 {
+  left: 2px;
+  width: 1276px;
+}
+.generating {
+  position: absolute;
+  top: 0;
+  left: 404px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 494px;
+  height: 110.67px;
+}
+.frame,
+.genpage {
+  position: relative;
+}
+.frame {
+  align-self: stretch;
+  height: 308.67px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.genpage {
+  background-color: var(--color-lightpink-100);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 141px;
+  opacity: 0;
+  text-align: center;
+  font-size: 64px;
+  color: var(--color-white);
+  font-family: var(--font-poppins);
+}
+.genpage.animate {
+  animation: 0.2s ease 0s 1 normal forwards slide-in-left;
+}

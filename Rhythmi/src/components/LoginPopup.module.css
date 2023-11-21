@@ -1,0 +1,109 @@
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.login {
+  position: absolute;
+  top: 14px;
+  left: 120px;
+  font-size: var(--font-size-5xl);
+}
+.email,
+.loginpopupChild {
+  position: absolute;
+  top: 64px;
+  left: 131.5px;
+}
+.loginpopupChild {
+  border: 0;
+  background-color: var(--color-pink);
+  top: 101px;
+  left: 26px;
+  border-radius: var(--br-21xl);
+  width: 255px;
+  height: 28px;
+  overflow: hidden;
+  text-indent: 10;
+}
+.loginpopupItem,
+.password {
+  position: absolute;
+  top: 143px;
+  left: 115.5px;
+}
+.loginpopupItem {
+  border: 0;
+  background-color: var(--color-pink);
+  top: 180px;
+  left: 26px;
+  border-radius: var(--br-21xl);
+  width: 255px;
+  height: 28px;
+  overflow: hidden;
+  text-indent: 10;
+}
+.login1 {
+  position: relative;
+  font-size: var(--font-size-mini);
+  font-family: var(--font-poppins);
+  color: var(--color-white);
+  text-align: center;
+}
+.loginWrapper,
+.loginWrapper:hover {
+  align-items: center;
+  justify-content: center;
+}
+.loginWrapper {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-4xs) 3px;
+  background-color: var(--color-rosybrown-600);
+  position: absolute;
+  top: calc(50% + 43px);
+  left: calc(50% - 23.5px);
+  border-radius: var(--br-3xs);
+  display: flex;
+  flex-direction: row;
+}
+.loginWrapper:hover {
+  width: auto;
+  align-self: unset;
+  padding: var(--padding-2xs) var(--padding-9xs);
+  box-sizing: border-box;
+}
+.dontHaveAn,
+.signUpHere {
+  position: absolute;
+  top: 277px;
+  left: 66px;
+}
+.signUpHere {
+  top: 314px;
+  left: 106.5px;
+  color: var(--color-paleturquoise);
+  cursor: pointer;
+}
+.loginpopup {
+  border-radius: var(--br-xl);
+  background-color: var(--color-rosybrown-500);
+  width: 307px;
+  height: 368px;
+  overflow: hidden;
+  opacity: 0;
+  max-width: 100%;
+  max-height: 100%;
+  text-align: center;
+  font-size: var(--font-size-mini);
+  color: var(--color-white);
+  font-family: var(--font-poppins);
+}
+.loginpopup.animate {
+  animation: 0.2s ease 0s 1 normal forwards slide-in-top;
+}

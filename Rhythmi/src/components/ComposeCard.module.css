@@ -1,0 +1,73 @@
+.frameIcon {
+  flex: 1;
+  position: relative;
+  max-height: 100%;
+  width: 1280px;
+  overflow: hidden;
+  z-index: 0;
+}
+.composeYourFirst {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 615.33px;
+  height: 67.33px;
+  flex-shrink: 0;
+}
+.composeYourFirstPieceHereWrapper {
+  text-decoration: none;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-lightpink-300);
+  width: 615.33px;
+  align-items: flex-end;
+  justify-content: center;
+  cursor: pointer;
+  color: inherit;
+}
+.composeYourFirstPieceHereWrapper:hover {
+  background-color: var(--color-rosybrown-300);
+}
+.composeYourFirstPieceHereWrapper:active {
+  background-color: var(--color-rosybrown-400);
+}
+.composeYourFirstPieceHereWrapper,
+.frame,
+.frame1,
+.frame2 {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.frame2 {
+  width: 1188px;
+  align-items: flex-start;
+  justify-content: center;
+}
+.frame,
+.frame1 {
+  margin: 0 !important;
+  position: absolute;
+  height: 308.67px;
+}
+.frame1 {
+  top: 0;
+  left: 2px;
+  width: 1276px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 1;
+}
+.frame {
+  top: 672.67px;
+  left: 0;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6.67px;
+  z-index: 2;
+  text-align: center;
+  font-size: 26.67px;
+  color: var(--color-white);
+  font-family: var(--font-poppins);
+}
