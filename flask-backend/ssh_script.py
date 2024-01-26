@@ -1,15 +1,19 @@
 import paramiko
 import time
 import argparse
+import sqlite3
+import os
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--description', type=str, required=True)
+parser.add_argument('--user-id', type=int, required=True)
 args = parser.parse_args()
 
 
 
 description = args.description
-des = description[:15].replace(" ", "_")
+des = description.replace(" ", "_")
+user_id = args.user_id
 
 hostname = 'kudu.dcs.warwick.ac.uk'
 username = 'u2102807'
@@ -19,6 +23,8 @@ directory_to_change = '/dcs/21/u2102807/Documents/cs310/audiocraft'
 batch_script_path = 'rhythmitest.sbatch'
 generated_filename = f'{des}.wav'
 command_to_run = 'sbatch --output=/dev/null rhythmitest.sbatch'
+
+db_path = 'instance/rhythmi.db'
 
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -43,16 +49,28 @@ try:
     stdin, stdout, stderr = ssh.exec_command(cd_command)
 
     if stdout.channel.recv_exit_status() == 0:
-        # Download the generated WAV file
         remote_wav_path = f'{directory_to_change}/{generated_filename}'
 
         while True:
             try:
-                sftp.get(remote_wav_path, generated_filename)
+
+                conn = sqlite3.connect(db_path)
+                cursor = conn.cursor()
+
+                file_data = sftp.file(remote_wav_path, 'rb').read()
+
+                insert_query = """
+                INSERT INTO song (user_id, prompt, file_data, creation_date)
+                VALUES (?,?,?,CURRENT_TIMESTAMP)
+                """
+                cursor.execute(insert_query, [user_id, des, sqlite3.Binary(file_data)])
+
+                conn.commit()
+                conn.close()
                 break
             except IOError:
                 print('File not yet available. Waiting...')
-                time.sleep(5)  # Adjust the delay as needed (e.g., every 5 seconds)
+                time.sleep(5) 
 
 
         batch_script_content = batch_script_content.replace(description_bytes, b'REPLACE')

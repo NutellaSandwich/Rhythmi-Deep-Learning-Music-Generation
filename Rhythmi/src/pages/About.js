@@ -1,10 +1,13 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import ComposeCard from "../components/ComposeCard";
 import styles from "./About.module.css";
+import { AuthContext } from "../AuthContext";
 
 const About = () => {
+  const { isLoggedIn, logout } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const onFrameLink1Click = useCallback(() => {
@@ -40,6 +43,11 @@ const About = () => {
       }
     };
   }, []);
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <div className={styles.aboutpage} data-animate-on-scroll>
       <div className={styles.forEveryoneAtRhythmiWeBeWrapper}>

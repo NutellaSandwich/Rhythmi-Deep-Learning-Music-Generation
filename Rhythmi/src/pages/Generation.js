@@ -10,16 +10,18 @@ const Generation = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [generationComplete, setGenerationComplete] = useState(false);
+  const [songID, setSongID] = useState(null);
 
   useEffect(() => {
     const requestData = location.state;
     if (requestData) {
-      // Use the data to perform the Axios post request
       axios
         .post("http://127.0.0.1:5000/generate-music", requestData)
         .then(function (response) {
-          // Handle success if needed
-          setGenerationComplete(true);
+          if (response.data.song_id){
+            setSongID(response.data.song_id);
+            setGenerationComplete(true);
+          }
         })
         .catch(function (error) {
           console.error(error);
@@ -59,8 +61,8 @@ const Generation = () => {
     };
   });
 
-  if (generationComplete) {
-    navigate("/song");
+  if (generationComplete && songID) {
+    navigate('/song/${response.data.songID}');
     return null;
   }
 

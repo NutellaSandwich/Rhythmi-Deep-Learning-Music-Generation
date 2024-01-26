@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AboutSection from "../components/AboutSection";
 import styles from "./Createpage.module.css";
+import { AuthContext } from "../AuthContext";
 
 
 const Createpage = () => {
@@ -9,6 +10,7 @@ const Createpage = () => {
   const [inputValue, setInputValue] = useState('');
   const [otherValue, setOtherValue] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
+  const { isLoggedIn, logout } = useContext(AuthContext);
 
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
@@ -62,16 +64,22 @@ const Createpage = () => {
       alert('Please describe your song.');
     }else if (selectedGenre == 'Other' && otherValue.trim() == ''){
       alert('Please describe your genre or select a preset one.')
-    }else{
+    }else if (!isLoggedIn){
+      console.log("LOGGED IN = ", isLoggedIn);
+      alert('Please Log in or Sign up before creating a piece.')
+    }
+    else{
+      const jwtToken = localStorage.getItem('token');
       // Pass the data to the generation page
       navigate("/generation", {
         state: {
           prompt: inputValue,
           genre: selectedGenre === "Other" ? otherValue : selectedGenre,
+          token: jwtToken
         },
       });
     }
-  }, [navigate, selectedGenre, inputValue,otherValue]);
+  }, [navigate, selectedGenre, inputValue,otherValue, isLoggedIn]);
 
   return (
     <div className={styles.createpage} data-animate-on-scroll>

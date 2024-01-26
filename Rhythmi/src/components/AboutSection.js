@@ -1,14 +1,16 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useContext } from "react";
 import LoginPopup from "./LoginPopup";
 import PortalPopup from "./PortalPopup";
 import SignupPopup from "./SignupPopup";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../AuthContext";
 import styles from "./AboutSection.module.css";
 
 const AboutSection = () => {
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
   const navigate = useNavigate();
+  const { isLoggedIn, logout } = useContext(AuthContext);
 
   const onFrameLinkClick = useCallback(() => {
     navigate("/aboutpage");
@@ -72,6 +74,10 @@ const AboutSection = () => {
     setSignupPopupOpen(false);
   }, []);
 
+  const handleLogout = () => {
+    logout();
+  }
+
   return (
     <>
       <div className={styles.frameParent}>
@@ -101,14 +107,22 @@ const AboutSection = () => {
             alt=""
             src="/icons8user96-1@2x.png"
           />
-          <div className={styles.vectorParent} data-animate-on-scroll>
-            <img className= {styles.vectorIcon2} alt="" src="/vector2.svg"/>
-            <b className={styles.logIn} onClick={openLoginPopup}>
-              Log in
-            </b>
-            <b className={styles.signUp} onClick={openSignupPopup}>
-              Sign up
-            </b>
+          <div className={styles.vectorParent}>
+            <img className={styles.vectorIcon2} alt="" src="/vector2.svg" />
+            {isLoggedIn ? (
+              <button className={styles.logoutButton} onClick={handleLogout}>
+                Sign Out
+              </button>
+            ) : (
+              <>
+                <b className={styles.logIn} onClick={openLoginPopup}>
+                  Log in
+                </b>
+                <b className={styles.signUp} onClick={openSignupPopup}>
+                  Sign up
+                </b>
+              </>
+            )}
           </div>
         </div>
       </div>

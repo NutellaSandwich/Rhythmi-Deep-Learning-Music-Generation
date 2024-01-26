@@ -1,10 +1,16 @@
 import { useState, useCallback, useEffect } from "react";
 import SignupPopup from "./SignupPopup";
 import styles from "./LoginPopup.module.css";
+import axios from 'axios';
+import { useAuth } from "../AuthContext"; // Import the useAuth hook
 
 const LoginPopup = ({ onClose }) => {
-  const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
+  const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
+  const { login } = useAuth();
+  
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -47,6 +53,31 @@ const LoginPopup = ({ onClose }) => {
     onClose();
   };
 
+  const handleLogin = async (login) => {
+    try{
+      const response = await axios.post('http://127.0.0.1:5000/login', {
+        email,
+        password,
+      });
+
+      if (response.status === 200){
+        console.log('User logged in: ', response.data.message);
+        login(response.data.token);
+        closeLoginPopup();
+      } else {
+        console.error('Login failed: ', response.data.message);
+      }
+    } catch (error) {
+      if (error.response) {
+        console.error('Error response:', error.response.data);
+      } else if (error.request) {
+        console.error('Error request:', error.request);
+      } else {
+        console.error('Error message:', error.message);
+      }
+    }
+  };
+
   return (
     <>
       {isSignupPopupOpen ? (
@@ -55,10 +86,10 @@ const LoginPopup = ({ onClose }) => {
         <div className={styles.loginpopup} data-animate-on-scroll>
           <b className={styles.login}>Login</b>
           <b className={styles.email}>Email</b>
-          <input className={styles.loginpopupChild} type="text" />
+            <input className={styles.loginpopupChild} type="text" onChange={(e) => setEmail(e.target.value)} />
           <b className={styles.password}>Password</b>
-          <input className={styles.loginpopupItem} type="text" />
-          <button className={styles.loginWrapper} onClick={closeLoginPopup}>
+            <input className={styles.loginpopupItem} type="text" onChange={(e) => setPassword(e.target.value)} />
+          <button className={styles.loginWrapper} onClick={() => handleLogin(login)}>
             <b className={styles.login1}>Login</b>
           </button>
           <div className={styles.dontHaveAn}>Dont have an account?</div>

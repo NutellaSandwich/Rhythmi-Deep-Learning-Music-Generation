@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import AboutContainer from "../components/AboutContainer";
 import styles from "./Song.module.css";
+import { useParams } from 'react-router-dom';
 
 const Song = () => {
   const [audioIsPlaying, setAudioIsPlaying] = useState(false);
+  const {songID} = useParams();
 
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(

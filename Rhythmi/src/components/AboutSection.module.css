@@ -184,7 +184,7 @@
   height: 97px;
   overflow: hidden;
   display: none;
-  opacity: 0;
+  opacity: 1;
 }
 .vectorParent.animate {
   animation: 0.2s linear 0s 1 normal forwards fade-in;
@@ -210,4 +210,32 @@
   font-size: var(--font-size-5xl);
   color: var(--color-white);
   font-family: var(--font-poppins);
+}
+.logoutButton {
+  position: absolute;
+  top: 38px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 26px;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  font-size: var(--font-size-base);
+  font-family: var(--font-poppins);
+  color: inherit;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  font-weight: bold;
+}
+
+.logoutButton:hover {
+  font-size: var(--font-size-lgi);
+  background: transparent;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }

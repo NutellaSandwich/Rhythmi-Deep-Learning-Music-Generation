@@ -1,14 +1,19 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useContext } from "react";
 import LoginPopup from "../components/LoginPopup";
 import PortalPopup from "../components/PortalPopup";
 import SignupPopup from "../components/SignupPopup";
 import { useNavigate } from "react-router-dom";
 import styles from "./Frame.module.css";
+import { AuthContext } from "../AuthContext";
 
 const Frame = () => {
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
+  const {isLoggedIn, logout} = useContext(AuthContext);
+
   const navigate = useNavigate();
+
+  console.log("isLoggedIn:", isLoggedIn);
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -75,6 +80,10 @@ const Frame = () => {
     navigate("/createpage");
   }, [navigate]);
 
+  const handleLogout = () => {
+    logout(); 
+  };
+
   return (
     <>
       <div className={styles.homepage} data-animate-on-scroll>
@@ -101,17 +110,25 @@ const Frame = () => {
             <div className={styles.loginwrapper}>
               <img
                 className={styles.icons8User961}
-                alt=""
+                alt="User Icon"
                 src="/icons8user96-1@2x.png"
               />
-              <div className={styles.vectorParent} data-animate-on-scroll>
-                <img className= {styles.vectorIcon2} alt="" src="/vector2.svg"/>
-                <b className={styles.logIn} onClick={openLoginPopup}>
-                  Log in
-                </b>
-                <b className={styles.signUp} onClick={openSignupPopup}>
-                  Sign up
-                </b>
+              <div className={styles.vectorParent}>
+                <img className={styles.vectorIcon2} alt="" src="/vector2.svg" />
+                {isLoggedIn ? (
+                  <button className={styles.logoutButton} onClick={handleLogout}>
+                    Sign Out
+                  </button>
+                ) : (
+                  <>
+                    <b className={styles.logIn} onClick={openLoginPopup}>
+                      Log in
+                    </b>
+                    <b className={styles.signUp} onClick={openSignupPopup}>
+                      Sign up
+                    </b>
+                  </>
+                )}
               </div>
             </div>
             <div className={styles.homebutton}>
@@ -138,6 +155,7 @@ const Frame = () => {
               Create Piece
             </div>
           </button>
+
         </div>
       </div>
       {isLoginPopupOpen && (

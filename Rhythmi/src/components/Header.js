@@ -1,9 +1,10 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useContext } from "react";
 import LoginPopup from "./LoginPopup";
 import PortalPopup from "./PortalPopup";
 import SignupPopup from "./SignupPopup";
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
+import { AuthContext } from "../AuthContext";
 
 const Header = ({
   icons8User962,
@@ -18,6 +19,7 @@ const Header = ({
 }) => {
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
+  const { isLoggedIn, logout } = useContext(AuthContext);
   const frameStyle = useMemo(() => {
     return {
       zIndex: frameZIndex,
@@ -108,6 +110,10 @@ const Header = ({
     navigate("/");
   }, [navigate]);
 
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <>
       <div className={styles.frame} style={frameStyle}>
@@ -134,24 +140,30 @@ const Header = ({
         <a className={styles.libraryWrapper} onClick={onFrameLink2Click}>
           <div className={styles.howItWorks}>Library</div>
         </a>
-        <button className={styles.loginwrapperWrapper}>
           <div className={styles.loginwrapper}>
             <img
               className={styles.icons8User961}
               alt=""
               src="/icons8user96-1@2x.png"
             />
-            <div className={styles.vectorParent} data-animate-on-scroll>
-              <img className= {styles.vectorIcon2} alt="" src="/vector2.svg"/>
-              <b className={styles.logIn} onClick={openLoginPopup}>
-                Log in
-              </b>
-              <b className={styles.signUp} onClick={openSignupPopup}>
-                Sign up
-              </b>
+            <div className={styles.vectorParent}>
+              <img className={styles.vectorIcon2} alt="" src="/vector2.svg" />
+              {isLoggedIn ? (
+                <button className={styles.logoutButton} onClick={handleLogout}>
+                  Sign Out
+                </button>
+              ) : (
+                <>
+                  <b className={styles.logIn} onClick={openLoginPopup}>
+                    Log in
+                  </b>
+                  <b className={styles.signUp} onClick={openSignupPopup}>
+                    Sign up
+                  </b>
+                </>
+              )}
             </div>
           </div>
-        </button>
         <a className={styles.createWrapper} onClick={onFrameLink3Click}>
           <div className={styles.howItWorks}>Create</div>
         </a>

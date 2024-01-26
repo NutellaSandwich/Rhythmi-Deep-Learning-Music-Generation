@@ -1,8 +1,11 @@
-import { useEffect } from "react";
+import {useEffect, useContext } from "react";
 import AboutContainer from "../components/AboutContainer";
 import styles from "./Librarypage.module.css";
+import { AuthContext } from "../AuthContext";
 
 const Librarypage = () => {
+  const { isLoggedIn, logout } = useContext(AuthContext);
+  
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -32,6 +35,11 @@ const Librarypage = () => {
       }
     };
   }, []);
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <div className={styles.librarypage} data-animate-on-scroll>
       <AboutContainer />
