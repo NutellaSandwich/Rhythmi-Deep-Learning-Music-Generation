@@ -11,15 +11,32 @@ const Generation = () => {
   const navigate = useNavigate();
   const [generationComplete, setGenerationComplete] = useState(false);
   const [songID, setSongID] = useState(null);
+  const [userID, setuserID] = useState(null);
 
   useEffect(() => {
-    const requestData = location.state;
-    if (requestData) {
+    const { prompt, genre, token, selectedFile, duration } = location.state;
+
+    const formData = new FormData();
+    formData.append('prompt', prompt);
+    formData.append('genre', genre);
+    formData.append('token', token);
+    formData.append('duration', duration)
+
+    if (selectedFile) {
+      formData.append('file', selectedFile);
+    }
+
+    const config = {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    };
+
+    if (prompt && genre && token) {
       axios
-        .post("http://127.0.0.1:5000/generate-music", requestData)
+        .post("http://127.0.0.1:5000/generate-music", formData, config)
         .then(function (response) {
           if (response.data.song_id){
             setSongID(response.data.song_id);
+            setuserID(response.data.user_id);
             setGenerationComplete(true);
           }
         })
@@ -27,7 +44,14 @@ const Generation = () => {
           console.error(error);
         });
     }
+
   }, [location.state]);
+
+  useEffect(() => {
+    if (generationComplete && songID && userID) {
+      navigate(`/song`, { state: { userID: userID, songID: songID } });
+    }
+    }, [generationComplete, songID, userID, navigate]);
 
 
   useEffect(() => {
@@ -60,11 +84,6 @@ const Generation = () => {
       }
     };
   });
-
-  if (generationComplete && songID) {
-    navigate('/song/${response.data.songID}');
-    return null;
-  }
 
   return (
     <div className={styles.genpage} data-animate-on-scroll>

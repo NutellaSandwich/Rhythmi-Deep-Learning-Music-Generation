@@ -1,0 +1,247 @@
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.about {
+  align-self: stretch;
+  position: relative;
+}
+.about:hover {
+  font-size: var(--font-size-8xl);
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.frame1 {
+  width: 304px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.frame1:hover {
+  width: 456px;
+  gap: var(--gap-0);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.frame1,
+.frameWrapper,
+.library {
+  display: flex;
+  align-items: center;
+}
+.frameWrapper {
+  text-decoration: none;
+  position: absolute;
+  top: 21px;
+  left: 62px;
+  width: 90.67px;
+  height: 34px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  cursor: pointer;
+  color: inherit;
+}
+.library {
+  flex: 1;
+  position: relative;
+  justify-content: center;
+  height: 26.67px;
+}
+.create:hover,
+.library:hover {
+  font-size: var(--font-size-8xl);
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.libraryWrapper {
+  text-decoration: none;
+  position: absolute;
+  top: 24px;
+  left: 344px;
+  width: 105.33px;
+  height: 30.67px;
+  overflow: hidden;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0.6666666865348816px 0;
+  box-sizing: border-box;
+}
+.create,
+.createWrapper,
+.libraryWrapper {
+  display: flex;
+  align-items: center;
+}
+.create {
+  flex: 1;
+  position: relative;
+  justify-content: center;
+  height: 26.67px;
+}
+.create:hover {
+  font-size: var(--font-size-8xl);
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.createWrapper {
+  text-decoration: none;
+  top: 23.33px;
+  left: 449px;
+  width: 105.33px;
+  height: 30.67px;
+  overflow: hidden;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0.6666666865348816px 0;
+  box-sizing: border-box;
+  color: inherit;
+}
+.createWrapper,
+.howItWorksWrapper,
+.vectorIcon {
+  position: absolute;
+  cursor: pointer;
+}
+.howItWorksWrapper {
+  text-decoration: none;
+  top: 22.33px;
+  left: 153px;
+  width: 191.33px;
+  height: 32.67px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2.6666667461395264px 0;
+  box-sizing: border-box;
+  color: inherit;
+}
+.vectorIcon {
+  top: 17.33px;
+  left: 12px;
+  width: 44px;
+  height: 44px;
+}
+.vectorIcon:hover {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--br-341xl);
+  box-shadow: 0 4px 4px 2px rgba(0, 0, 0, 0.25);
+}
+.icons8User961 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56.67px;
+  height: 56.67px;
+  object-fit: cover;
+}
+.icons8User961:hover {
+  width: 56px;
+  cursor: pointer;
+}
+.logIn,
+.signUp,
+.vectorIcon2{
+  position: absolute;
+  top: 10px;
+  left:9px;
+  width: 76px;
+  height: 76.4px;
+}
+.logIn,
+.signUp {
+  position: absolute;
+  top: 18px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 26px;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.logIn:hover,
+.signUp:hover {
+  font-size: var(--font-size-lgi);
+}
+.signUp {
+  top: 45px;
+  left: 1px;
+  width: 92px;
+  height: 37px;
+}
+.vectorParent {
+  position: absolute;
+  top: 44px;
+  left: -19px;
+  width: 89px;
+  height: 97px;
+  overflow: hidden;
+  display: none;
+  opacity: 1;
+}
+.vectorParent.animate {
+  animation: 0.2s linear 0s 1 normal forwards fade-in;
+}
+.loginwrapper {
+  position: absolute;
+  top: 10.33px;
+  left: 1215px;
+  width: 56.67px;
+  height: 56.67px;
+  font-size: var(--font-size-base);
+}
+.loginwrapper:hover .signUp,
+.loginwrapper:hover .vectorParent {
+  display: flex;
+}
+.frame {
+  flex: 1;
+  position: relative;
+  border-radius: 6.67px;
+  background-color: var(--color-lightpink-400);
+  height: 76px;
+  z-index: 1;
+  text-align: center;
+  font-size: var(--font-size-5xl);
+  color: var(--color-white);
+  font-family: var(--font-poppins);
+}
+
+.logoutButton {
+  position: absolute;
+  top: 38px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 26px;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  font-size: var(--font-size-base);
+  font-family: var(--font-poppins);
+  color: inherit;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  font-weight: bold;
+}
+
+.logoutButton:hover {
+  font-size: var(--font-size-lgi);
+  background: transparent;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}

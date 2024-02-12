@@ -88,8 +88,7 @@ const LoginPopup = ({ onClose }) => {
           <b className={styles.email}>Email</b>
             <input className={styles.loginpopupChild} type="text" onChange={(e) => setEmail(e.target.value)} />
           <b className={styles.password}>Password</b>
-            <input className={styles.loginpopupItem} type="text" onChange={(e) => setPassword(e.target.value)} />
-          <button className={styles.loginWrapper} onClick={() => handleLogin(login)}>
+            <input className={styles.loginpopupItem} type="password" onChange={(e) => setPassword(e.target.value)} />          <button className={styles.loginWrapper} onClick={() => handleLogin(login)}>
             <b className={styles.login1}>Login</b>
           </button>
           <div className={styles.dontHaveAn}>Dont have an account?</div>

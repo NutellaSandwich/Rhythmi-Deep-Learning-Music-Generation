@@ -25,15 +25,17 @@
 .generationInner,
 .vectorIcon {
   position: absolute;
-  top: 325.33px;
-  left: 90px;
-  width: 1281.33px;
-  height: 394.67px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
 }
 .vectorIcon {
-  top: 487.77px;
-  width: 1280px;
-  height: 232.23px;
+  position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
 }
 .other {
   position: relative;
@@ -63,7 +65,7 @@
 .frameInput {
   border: 0;
   background-color: #fae3d9;
-  top: 570px;
+  top: 620px;
   left: 324.67px;
   border-radius: 13.33px;
   box-shadow: 0 2.6666667461395264px 2.67px rgba(0, 0, 0, 0.25);
@@ -96,7 +98,7 @@
   padding: 0;
   background-color: var(--color-lightpink-300);
   position: absolute;
-  top: 558.67px;
+  top: 610px;
   left: calc(50% + 271.67px);
   border-radius: 16.67px;
   box-shadow: 0 2.6666667461395264px 2.67px rgba(0, 0, 0, 0.25);
@@ -203,7 +205,6 @@
   align-self: stretch;
   position: relative;
 }
-.frame1,
 .frame2 {
   position: absolute;
   top: 470px;
@@ -215,6 +216,19 @@
   align-items: center;
   justify-content: flex-end;
 }
+
+.frame1{
+  position: absolute;
+  top: 560px;
+  left: 128px;
+  width: 332px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 .frame2 {
   top: 86.67px;
   width: 302.67px;
@@ -469,7 +483,7 @@
   justify-content: center;
 }
 .generation {
-  position: absolute;
+  position: relative;
   top: 0;
   left: -90px;
   width: 1370px;
@@ -479,14 +493,111 @@
   position: relative;
   background-color: var(--color-white);
   width: 100%;
-  height: 720px;
+  height: auto;
   overflow: hidden;
-  opacity: 0;
+  opacity: 1;
   text-align: center;
   font-size: var(--font-size-13xl);
   color: var(--color-white);
   font-family: var(--font-poppins);
+  min-height: 100vh;
+  overflow: auto;
 }
 .createpage.animate {
   animation: 0.2s ease 0s 1 normal forwards slide-in-left;
+}
+
+.uploadAudioFile {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 10;
+  opacity: 1;
+  position: absolute;
+  left:20%;
+  top:450px;
+  
+  
+}
+
+.uploadLabel {
+  margin-bottom: 8px;
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  
+}
+
+.fileInput {
+  font-size: 14px;
+  padding: 8px;
+  background-color: #F6E4DA;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease-in-out;
+  border-radius: 10px;
+  font-family: var(--font-poppins);
+}
+
+.fileInput:hover,
+.fileInput:focus {
+  background-color: #e7d5cc;
+  outline: none;
+}
+
+
+
+.durationSliderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding-top: 35%;
+  padding-left: 55%;
+  opacity: 1;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+.durationSlider {
+  width: 50%;
+  height: 8px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.durationSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #af4c4c;
+  cursor: pointer;
+}
+
+.durationSlider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.durationText {
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 10px;
+  z-index: 1;
+  font-weight: bold;
+
 }

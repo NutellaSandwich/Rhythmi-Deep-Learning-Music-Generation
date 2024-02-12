@@ -44,37 +44,11 @@
   animation: 0.2s ease 0s 1 normal forwards slide-in-left;
 }
 
-.audioPlayer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 16px;
-  padding: 20px;
-  /* Adjust the padding as needed */
+
+.Waveform {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-audio {
-  width: 300px;
-  /* Adjust the width as needed */
-  margin-bottom: 8px;
-}
-
-button {
-  background-color: black;
-  /* Set to black */
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: grey;
-  /* Set to grey on hover */
-  color: white;
+  padding-top: 1000px;
 }

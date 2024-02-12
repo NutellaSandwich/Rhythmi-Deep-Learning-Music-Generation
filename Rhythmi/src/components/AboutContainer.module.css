@@ -9,16 +9,20 @@
 .about {
   align-self: stretch;
   position: relative;
+  transition: transform 0.2s ease, padding 0.2s ease, box-shadow 0.2s ease;
 }
 .about:hover {
   font-size: var(--font-size-8xl);
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  
 }
+
 .frame1 {
   width: 304px;
   overflow: hidden;
   flex-direction: column;
   justify-content: flex-start;
+  transition: transform 0.2s ease, padding 0.2s ease, box-shadow 0.2s ease;
 }
 .frame1:hover {
   width: 456px;
@@ -210,11 +214,12 @@
   border-radius: 6.67px;
   background-color: var(--color-lightpink-400);
   height: 76px;
-  z-index: 0;
+  z-index: 1;
   text-align: center;
   font-size: var(--font-size-5xl);
   color: var(--color-white);
   font-family: var(--font-poppins);
+  margin-bottom: 65px;
 }
 
 .logoutButton {

@@ -11,6 +11,8 @@ const Createpage = () => {
   const [otherValue, setOtherValue] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
   const { isLoggedIn, logout } = useContext(AuthContext);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [duration, setDuration] = useState(5);
 
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
@@ -57,6 +59,20 @@ const Createpage = () => {
     setOtherValue(value);
   };
   
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleDurationChange = (event) => {
+    setDuration(event.target.value);
+  };
+
+  const formatDuration = () => {
+    const minutes = Math.floor(duration / 60);
+    const seconds = duration % 60;
+    return `${minutes}m ${seconds}s`;
+  };
+
   const onFrameButtonClick = useCallback(() => {
     if (selectedGenre == ''){
       alert('Please choose a genre.');
@@ -70,12 +86,14 @@ const Createpage = () => {
     }
     else{
       const jwtToken = localStorage.getItem('token');
-      // Pass the data to the generation page
+      setDuration(5);
       navigate("/generation", {
         state: {
           prompt: inputValue,
           genre: selectedGenre === "Other" ? otherValue : selectedGenre,
-          token: jwtToken
+          token: jwtToken,
+          selectedFile: selectedFile,
+          duration: duration
         },
       });
     }
@@ -111,8 +129,33 @@ const Createpage = () => {
           <div className={styles.rock}>Indie</div>
         </button>
         <div className={styles.frame1}>
-          <b className={styles.describeYourSong}>Describe your song:</b>
+          <b className={styles.describeYourSong1}>Describe your song:</b>
         </div>
+
+        <div className={styles.uploadAudioFile}>
+          <label htmlFor="audioUpload" className={styles.uploadLabel}>Upload a Song to use its Melody (optional)</label>
+          <input
+            id="audioUpload"
+            type="file"
+            onChange={handleFileChange}
+            accept="audio/*" // Accepts all audio types, adjust if needed
+            className={styles.fileInput}
+          />
+        </div>
+
+        <div className={styles.durationSliderContainer}>
+          <div className={styles.durationText}>Duration: {formatDuration()}</div>
+          <input
+            id="durationSlider"
+            type="range"
+            min="5"
+            max="300"
+            value={duration}
+            onChange={handleDurationChange}
+            className={styles.durationSlider}
+          />
+        </div>
+
         <div className={styles.frame2}>
           <b className={styles.describeYourSong}>Choose the Genre:</b>
         </div>
@@ -135,6 +178,7 @@ const Createpage = () => {
         <div className={styles.frame3}>
           <input className={styles.frameChild} type="text" onChange={handleOtherChange}/>
         </div>
+        
       </div>
       <AboutSection />
     </div>

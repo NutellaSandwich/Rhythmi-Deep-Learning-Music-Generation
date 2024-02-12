@@ -1,11 +1,16 @@
-import { useEffect, useState } from "react";
-import AboutContainer from "../components/AboutContainer";
+import { useEffect, useState, useRef } from "react";
+import SongContainer from "../components/SongContainer";
 import styles from "./Song.module.css";
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import Waveform from '../components/Waveform';
+
 
 const Song = () => {
-  const [audioIsPlaying, setAudioIsPlaying] = useState(false);
-  const {songID} = useParams();
+  const {state} = useLocation();
+  const [audioSrc, setAudioSrc] = useState(null);
+  const {userID, songID} = state;
+
+
 
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
@@ -25,6 +30,13 @@ const Song = () => {
         threshold: 0.15,
       }
     );
+    fetch(`http://127.0.0.1:5000/get-song/${userID}/${songID}`)
+      .then(response => response.blob())
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        setAudioSrc(url);
+
+      });
 
     for (let i = 0; i < scrollAnimElements.length; i++) {
       observer.observe(scrollAnimElements[i]);
@@ -34,31 +46,19 @@ const Song = () => {
       for (let i = 0; i < scrollAnimElements.length; i++) {
         observer.unobserve(scrollAnimElements[i]);
       }
-    };
-  }, []);
 
-  const handlePlayPause = () => {
-    setAudioIsPlaying(!audioIsPlaying);
-  };
+    };
+  }, [userID, songID]);
 
   return (
     <div className={styles.song} data-animate-on-scroll>
-      <AboutContainer />
+      <SongContainer />
       <div className={styles.frame}>
         <img className={styles.frameIcon} alt="" src="/frame.svg" />
       </div>
 
-      <div className={styles.audioPlayer}>
-        <audio controls>
-          <source
-            src="http://127.0.0.1:5000/get-audio/Classical_music.wav"
-            type="audio/wav"
-          />
-        </audio>
-        <button onClick={handlePlayPause}>
-          {audioIsPlaying ? "Pause" : "Play"}
-        </button>
-      </div>
+      
+      <Waveform className="Waveform" url={audioSrc} />
     </div>
   );
 };
