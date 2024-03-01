@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import AboutSection from "../components/AboutSection";
 import styles from "./Createpage.module.css";
 import { AuthContext } from "../AuthContext";
@@ -11,10 +11,12 @@ const Createpage = () => {
   const [otherValue, setOtherValue] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
   const { isLoggedIn, logout } = useContext(AuthContext);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [duration, setDuration] = useState(5);
+  const { state } = useLocation();
+  const [selectedFile, setSelectedFile] = useState(state?.editMode ? state?.songData?.file_data : null);  const [duration, setDuration] = useState(5);
+  console.log("State value:", state); 
 
   useEffect(() => {
+    console.log("Createpage rendered. State value:", state); 
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
     );
@@ -42,7 +44,7 @@ const Createpage = () => {
         observer.unobserve(scrollAnimElements[i]);
       }
     };
-  }, []);
+  }, [state]);
 
 
   const handleRadioClick = (genre) => {
@@ -60,7 +62,13 @@ const Createpage = () => {
   };
   
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    if (state) { // Check if state exists before using it
+      if (!state.editMode) {
+        setSelectedFile(event.target.files[0]);
+      }
+    } else {
+      setSelectedFile(event.target.files[0]); // Default, not in edit mode
+    }
   };
 
   const handleDurationChange = (event) => {
@@ -86,7 +94,6 @@ const Createpage = () => {
     }
     else{
       const jwtToken = localStorage.getItem('token');
-      setDuration(5);
       navigate("/generation", {
         state: {
           prompt: inputValue,
@@ -97,7 +104,7 @@ const Createpage = () => {
         },
       });
     }
-  }, [navigate, selectedGenre, inputValue,otherValue, isLoggedIn]);
+  }, [navigate, selectedGenre, inputValue,otherValue, isLoggedIn, selectedFile, duration]);
 
   return (
     <div className={styles.createpage} data-animate-on-scroll>
@@ -131,19 +138,25 @@ const Createpage = () => {
         <div className={styles.frame1}>
           <b className={styles.describeYourSong1}>Describe your song:</b>
         </div>
+        {state?.editMode ? (
+          <div className={styles.editingMessage}>Editing Song...</div>
+        ) : (
+          <div className={styles.uploadAudioFile}>
+            <label htmlFor="audioUpload" className={styles.uploadLabel}>
+              Upload a Song to use its Melody (optional)
+            </label>
+            <input
+              id="audioUpload"
+              type="file"
+              onChange={handleFileChange}
+              accept="audio/*"
+              className={styles.fileInput}
+            />
+          </div>
+        )}
+        
 
-        <div className={styles.uploadAudioFile}>
-          <label htmlFor="audioUpload" className={styles.uploadLabel}>Upload a Song to use its Melody (optional)</label>
-          <input
-            id="audioUpload"
-            type="file"
-            onChange={handleFileChange}
-            accept="audio/*" // Accepts all audio types, adjust if needed
-            className={styles.fileInput}
-          />
-        </div>
-
-        <div className={styles.durationSliderContainer}>
+        <div className={`${styles.durationSliderContainer} ${state?.editMode ? styles.editModeStyle : ''}`}>
           <div className={styles.durationText}>Duration: {formatDuration()}</div>
           <input
             id="durationSlider"

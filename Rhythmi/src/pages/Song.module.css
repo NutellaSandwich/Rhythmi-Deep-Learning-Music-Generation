@@ -17,7 +17,6 @@
 }
 .frame,
 .song {
-  display: flex;
   align-items: flex-start;
   justify-content: center;
 }
@@ -46,9 +45,14 @@
 
 
 .Waveform {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding-top: 1000px;
+position: absolute;
+top: 500px;
+}
+
+.prompt{
+  text-align: center;
+  font-family: var(--font-poppins);
+  color: #fff;
+  font-size: 30px;
+  margin-right: 30px;
 }

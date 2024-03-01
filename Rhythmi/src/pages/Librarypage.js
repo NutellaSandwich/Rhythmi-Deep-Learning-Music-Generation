@@ -71,9 +71,9 @@ const Librarypage = () => {
   const handleDownload = (event, song) => {
     event.stopPropagation(); // Prevent triggering onClick of the parent element
     fetch(`http://127.0.0.1:5000/get-song/${song.user_id}/${song.id}`)
-      .then(response => response.blob())
-      .then(blob => {
-        const url = window.URL.createObjectURL(blob);
+      .then(response => response.data())
+      .then(data => {
+        const url = window.URL.createObjectURL(new Blob([data.file_data]));
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
@@ -84,6 +84,30 @@ const Librarypage = () => {
         document.body.removeChild(a);
       })
       .catch(error => console.error('Error downloading song:', error));
+  };
+
+  const handleSongDelete = async (songId) => {
+    try {
+      const jwtToken = localStorage.getItem('token');
+      const response = await fetch('http://127.0.0.1:5000/delete-song', {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${jwtToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ songId })
+      });
+
+      if (response.ok) {
+        // Remove the deleted song from the 'songs' state
+        setSongs(songs.filter(song => song.id !== songId));
+      } else {
+        // Handle the error if the deletion fails
+        console.error('Error deleting song:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting song:', error);
+    }
   };
 
   return (
@@ -97,6 +121,7 @@ const Librarypage = () => {
           onClick={() => handleSongClick(song)}
           onEdit={(event) => handleEdit(event, song)}
           onDownload={(event) => handleDownload(event, song)}
+          onSongDelete={() => handleSongDelete(song.id)} 
         /> ))}
       </div>
       <div className={styles.frame}>

@@ -14,9 +14,10 @@ from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000",
+CORS(app, resources={r"*": {"origins": "http://localhost:3000",
                                  "allow_headers": ["Authorization", "Content-Type"],
-                                 "supports_credentials": True}})
+                                 "supports_credentials": True,
+                                 "methods": ["OPTIONS", "GET", "POST"]}})
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rhythmi.db'
 app.config['SECRET_KEY'] = 'hello'
 db = SQLAlchemy(app)
@@ -163,6 +164,35 @@ def get_user_songs():
     }for song in user_songs]
 
     return jsonify(songs_data)
+
+@app.route('/get-prompt/<user_id>/<song_id>', methods =['GET'])
+@cross_origin(origin='http://localhost:3000')
+def get_prompt(user_id, song_id):
+    song = Song.query.filter_by(user_id=user_id, id=song_id).first()
+
+    if song:
+        print(song.prompt)
+        return jsonify({'prompt': song.prompt})
+    else:
+        return jsonify({'message': 'Song not found'}), 404 
+
+@app.route('/delete-song/<user_id>/<song_id>', methods=['DELETE'])
+@cross_origin(origin='http://localhost:3000/librarypage')
+def delete_song(user_id, song_id):
+    try:
+        song_to_delete = Song.query.filter_by(id=song_id, user_id=user_id).first()
+
+        if song_to_delete:
+            db.session.delete(song_to_delete)
+            db.session.commit()
+            return '', 200
+        else:
+            return 'Song not found', 404
+    except Exception as e:
+        print(f"Error deleting song: {e}")
+        return 'Internal Server Error', 500
+
+
 
 if __name__ == '__main__':
     app.run()

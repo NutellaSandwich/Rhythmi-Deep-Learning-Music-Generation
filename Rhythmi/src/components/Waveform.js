@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 import './Waveform.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 
 class Waveform extends Component {
+
     state = {
         playing: false,
+        audioData: null
     };
 
     componentDidMount() {
@@ -32,6 +34,7 @@ class Waveform extends Component {
         // Only update if the URL has changed
         if (this.props.url && this.props.url !== prevProps.url) {
             this.waveform.load(this.props.url);
+            
         }
     }
 

@@ -8,6 +8,7 @@ import Waveform from '../components/Waveform';
 const Song = () => {
   const {state} = useLocation();
   const [audioSrc, setAudioSrc] = useState(null);
+  const [prompt, setPrompt] = useState('');
   const {userID, songID} = state;
 
 
@@ -38,6 +39,15 @@ const Song = () => {
 
       });
 
+    fetch(`http://127.0.0.1:5000/get-prompt/${userID}/${songID}`)
+      .then(response => response.json())
+      .then(data => {
+        setPrompt(data.prompt);
+      })
+      .catch(error => {
+        console.error('Error fetching prompt: ', error);
+      });
+
     for (let i = 0; i < scrollAnimElements.length; i++) {
       observer.observe(scrollAnimElements[i]);
     }
@@ -56,9 +66,8 @@ const Song = () => {
       <div className={styles.frame}>
         <img className={styles.frameIcon} alt="" src="/frame.svg" />
       </div>
-
-      
-      <Waveform className="Waveform" url={audioSrc} />
+        <p className={styles.prompt}>{prompt}</p>
+      <Waveform className={styles.Waveform} url={audioSrc} />
     </div>
   );
 };

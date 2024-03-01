@@ -13,12 +13,12 @@ parser.add_argument('--filePath', type=str)
 args = parser.parse_args()
 
 file_path = args.filePath
-
-
 description = args.description
 des = description.replace(" ", "_")
 user_id = args.user_id
 duration = args.duration
+
+duration = str(duration)
 
 hostname = 'kudu.dcs.warwick.ac.uk'
 username = 'u2102807'
@@ -63,9 +63,14 @@ try:
         batch_script_content = remote_file.read()
 
     description_bytes = f'{description}'.encode('utf-8')
+    duration_bytes = duration.encode('utf-8')
+    if file_path:
+        remote_file_path_bytes = remote_file_path.encode('utf-8')
     batch_script_content = batch_script_content.replace(b'REPLACE', description_bytes)
-    batch_script_content = batch_script_content.replace('REPLACE1', duration)
-    batch_script_content = batch_script_content.replace('REPLACE2', remote_file_path)
+    batch_script_content = batch_script_content.replace(b'REPLAC', duration_bytes)
+
+    if file_path:
+        batch_script_content = batch_script_content.replace(b'REPLA', remote_file_path_bytes)
 
     with sftp.file(f'{directory_to_change}/{batch_script_path}','w') as remote_file:
         remote_file.write(batch_script_content)
@@ -99,12 +104,16 @@ try:
 
 
         batch_script_content = batch_script_content.replace(description_bytes, b'REPLACE')
+        batch_script_content = batch_script_content.replace(duration_bytes, b'REPLAC')
+        if file_path:
+            batch_script_content = batch_script_content.replace(remote_file_path_bytes, b'REPLA')
 
         with sftp.file(f'{directory_to_change}/{batch_script_path}', 'w') as remote_file:
             remote_file.write(batch_script_content)
         
         ssh.exec_command(f'rm {remote_wav_path}')
-        sftp.remove(remote_file_path)
+        if file_path:
+            sftp.remove(remote_file_path)
         sftp.close()
         
     else:

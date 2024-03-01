@@ -205,7 +205,6 @@
   display: flex;
 }
 .frame {
-  flex: 1;
   position: relative;
   border-radius: 6.67px;
   background-color: var(--color-lightpink-400);
@@ -215,6 +214,7 @@
   font-size: var(--font-size-5xl);
   color: var(--color-white);
   font-family: var(--font-poppins);
+  width: 100%;
 }
 
 .logoutButton {

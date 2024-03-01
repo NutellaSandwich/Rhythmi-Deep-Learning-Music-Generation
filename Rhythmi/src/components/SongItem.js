@@ -2,10 +2,34 @@ import React, {useEffect, useState,useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SongItem.module.css';
 
-const SongItem = ({ song, onClick, onEdit, onDownload }) => {
+const SongItem = ({ song, onClick, onEdit, onDownload, onSongDelete }) => {
 
     const [audioSrc, setAudioSrc] = useState(null);
     const [genre, actualPrompt] = song.prompt.split('_music:_');
+    const [isDeleting, setIsDeleting] = useState(false);
+    const navigate = useNavigate();
+
+    const handleDelete = async (e,song) => {
+        e.stopPropagation();
+        setIsDeleting(true);
+
+        try {
+            const reponse = await fetch(`http://127.0.0.1:5000/delete-song/${song.user_id}/${song.id}`,{
+                method: 'DELETE'
+            });
+            if (response.ok){
+                if (typeof onSongDelete === 'function') {
+                    onSongDelete(song.id);
+                }
+            }else {
+                console.error("Error deleting song:", response.statusText);
+            }
+        } catch(error){
+            console.error("Error deleting song:", error);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
 
     useEffect(() => {
         fetch(`http://127.0.0.1:5000/get-song/${song.user_id}/${song.id}`)
@@ -30,8 +54,8 @@ const SongItem = ({ song, onClick, onEdit, onDownload }) => {
         <div className={styles['song-item']} onClick={onClick}>
             <div className={styles['content-wrapper']}>
                 <div className={styles['text-info']}>
-                    <h3>{genre}_music:</h3>
-                    <h2>{actualPrompt}</h2>
+                    <h3>{genre} music:</h3>
+                    <h2>{actualPrompt.replace(/_/g, " ")}</h2>
                     <span className={styles['song-date']}>{"Created On: " + formatDate(song.creation_date)}</span>
                 </div>
                 {audioSrc && (
@@ -42,8 +66,26 @@ const SongItem = ({ song, onClick, onEdit, onDownload }) => {
                 )}
             </div>
             <div className={styles['song-actions']}>
-                <button onClick={(e) => { e.stopPropagation(); onEdit(e,song); }} className={styles['edit-btn']}>Edit</button>
-                <button onClick={(e) => { e.stopPropagation(); onDownload(e,song); }} className={styles['download-btn']}>Download</button>
+                <button onClick={(e) => { 
+                    e.stopPropagation(); 
+                    navigate('/createpage', { state: {editMode: true, songData:song}});
+                }}
+                    className={styles['edit-btn']}>
+                    Edit
+                </button>
+                <button onClick={(e) => { 
+                    e.stopPropagation(); 
+                    onDownload(e,song); }} 
+                    className={styles['download-btn']}>
+                    Download
+                </button>
+                <button
+                    onClick={(e) => handleDelete(e,song)}
+                    className={styles['delete-btn']}
+                    disabled={isDeleting}
+                >
+                    {isDeleting ? 'Deleting...' : 'Delete'}
+                </button>
             </div>
         </div>
 
