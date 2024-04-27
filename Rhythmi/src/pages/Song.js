@@ -1,3 +1,12 @@
+/**
+ * Song Component:
+ * - Displays an individual song with audio playback and waveform visualization for educational content
+ * - Fetches song data, prompt, and analysis from the server using the song's ID and user ID
+ * - Uses IntersectionObserver to manage scroll animations for visual elements
+ * - Shows song details like BPM and key with explanatory tooltips
+ */
+
+
 import { useEffect, useState, useRef } from "react";
 import SongContainer from "../components/SongContainer";
 import styles from "./Song.module.css";
@@ -10,6 +19,7 @@ const Song = () => {
   const [audioSrc, setAudioSrc] = useState(null);
   const [prompt, setPrompt] = useState('');
   const {userID, songID} = state;
+  const [analysisData, setAnalysisData] = useState(null);
 
 
 
@@ -42,7 +52,7 @@ const Song = () => {
     fetch(`http://127.0.0.1:5000/get-prompt/${userID}/${songID}`)
       .then(response => response.json())
       .then(data => {
-        setPrompt(data.prompt);
+        setPrompt(data.prompt.replace(/_/g,' '));
       })
       .catch(error => {
         console.error('Error fetching prompt: ', error);
@@ -52,6 +62,18 @@ const Song = () => {
       observer.observe(scrollAnimElements[i]);
     }
 
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:5000/analyze-song/${userID}/${songID}`);
+        const data = await response.json();
+        console.log(data)
+        setAnalysisData(data);
+      } catch (error) {
+        console.error('Error fetching analysis: ', error);
+      }
+    };
+
+    fetchData();
     return () => {
       for (let i = 0; i < scrollAnimElements.length; i++) {
         observer.unobserve(scrollAnimElements[i]);
@@ -60,14 +82,31 @@ const Song = () => {
     };
   }, [userID, songID]);
 
+  useEffect(() => {
+    if (analysisData) {
+      console.log(analysisData);
+    }
+  }, [analysisData]);
+
   return (
     <div className={styles.song} data-animate-on-scroll>
       <SongContainer />
       <div className={styles.frame}>
         <img className={styles.frameIcon} alt="" src="/frame.svg" />
       </div>
-        <p className={styles.prompt}>{prompt}</p>
-      <Waveform className={styles.Waveform} url={audioSrc} />
+      <p className={styles.prompt}>{prompt}</p>
+      <Waveform url={audioSrc} peak={analysisData?.peak} trough={analysisData?.trough} duration={analysisData?.duration} />
+      {/* Analysis Data Section */}
+      <div className={styles.analysisData}>
+        <div className={styles.bpm}>
+          <strong>BPM:{analysisData?.bpm}</strong>
+          <span className={styles.tooltip}>BPM refers to the number of beats in one minute, indicating the tempo of the song.</span>
+        </div>
+        <div className={styles.key}>
+          <strong>Key: {analysisData?.key}</strong>
+          <span className={styles.tooltip}>The key of a song determines the scale and pitch, influencing the song's overall mood and harmonic structure.</span>
+        </div>
+      </div>
     </div>
   );
 };

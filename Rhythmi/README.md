@@ -1,10 +1,27 @@
+# Rhythmi
 
-  # Rhythmi
+Rhythmi leverages the metaAI AudioCraft Library to analyze and generate music based on user inputs. It features a React frontend for a dynamic and responsive user interface, and a Flask backend for handling business logic, database operations, and server-side functionalities.
 
-  Note: Please ensure you have installed <code><a href="https://nodejs.org/en/download/">nodejs</a></code>
+## Features
 
-  To preview and run the project on your device:
-  1) Open project folder in <a href="https://code.visualstudio.com/download">Visual Studio Code</a>
-  2) In the terminal, run `npm install`
-  3) Run `npm start` to view project in browser
+- **Music Generation**: Generate music based on textual descriptions and user-uploaded melodies.
+- **User Authentication**: Secure login and registration functionality for users.
+- **Real-time Audio Education**: Use Fast Fourier Transform for real-time audio analysis and educational information.
+
+## Technologies Used
+
+- **Frontend**: React, HTML, CSS, JavaScript
+- **Backend**: Flask, Python
+- **Language Model**: Audiocraft MetaAI
+- **Database**: SQLite
+- **Additional Libraries**: Paramiko, JWT, Librosa, SQLAlchemy
+
+## How to run
+
+- cd Rhythmi/flask-backend
+-   flask run
+- new terminal
+-   cd to Rhythmi/Rhythmi
+-     npm start
+
   

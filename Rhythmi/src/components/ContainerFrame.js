@@ -1,3 +1,12 @@
+/**
+ * ContainerFrame Component:
+ * - Provides site-wide navigation links to pages such as About, How it Works, Library, and Create.
+ * - Manages display of login and signup modal popups through user interactions.
+ * - Utilizes IntersectionObserver to add animations to elements as they enter the viewport.
+ * - Facilitates navigation to the homepage through a vector icon click.
+ */
+
+
 import { useState, useCallback, useEffect } from "react";
 import LoginPopup from "./LoginPopup";
 import PortalPopup from "./PortalPopup";

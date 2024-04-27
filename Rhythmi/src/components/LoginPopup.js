@@ -1,3 +1,13 @@
+/**
+ * LoginPopup Component:
+ * - Handles user login through a form interface where users can enter their email and password.
+ * - Integrates with the AuthContext to manage user authentication state.
+ * - Provides an option to switch to a SignupPopup for new users.
+ * - Uses IntersectionObserver for scroll-based animations on UI elements.
+ * - Closes the popup and logs the user in on successful authentication.
+ */
+
+
 import { useState, useCallback, useEffect } from "react";
 import SignupPopup from "./SignupPopup";
 import styles from "./LoginPopup.module.css";

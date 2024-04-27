@@ -1,3 +1,12 @@
+/**
+ * AboutSection Component:
+ * - Provides navigational links to pages like About, How it Works, Library, and Home.
+ * - Manages login and signup popups, allowing users to access authentication forms.
+ * - Handles user authentication status, offering logout functionality for logged-in users.
+ * - Uses IntersectionObserver for scroll animations to enhance visual interaction with navigational links.
+ */
+
+
 import { useState, useCallback, useEffect, useContext } from "react";
 import LoginPopup from "./LoginPopup";
 import PortalPopup from "./PortalPopup";

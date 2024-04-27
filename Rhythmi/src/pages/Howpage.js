@@ -1,3 +1,12 @@
+/**
+ * Howpage Component:
+ * - Provides detailed instructions on how to use the platform for music generation.
+ * - Explains the underlying AI technology, specifically how the MusicGen model processes user inputs to generate music.
+ * - Features dynamic scroll animations to enhance user experience.
+ * - Includes a Header component for navigation back to the About page.
+ */
+
+
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";

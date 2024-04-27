@@ -1,3 +1,12 @@
+/**
+ * SoundWave Component:
+ * - Visualizes audio waveforms as a series of animated bars.
+ * - Uses a set of predefined unique colors to style each bar differently.
+ * - Applies random animation durations to each bar for a dynamic visual effect.
+ * - Generates a fixed number of bars (40) to represent the sound wave.
+ */
+
+
 import React, { useEffect } from 'react';
 import './SoundWave.css';
 

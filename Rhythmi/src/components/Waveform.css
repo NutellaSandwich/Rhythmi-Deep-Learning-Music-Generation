@@ -36,3 +36,29 @@
 .PlayButton:hover {
     background: #71b1b1;
 }
+
+.marker {
+    position: absolute;
+    width: 2px;
+    /* Adjust the width of the marker as needed */
+    height: 100%;
+    /* Adjust the height of the marker as needed */
+    background-color: rgba(255, 0, 0, 0.5);
+    /* Default color for markers */
+    top: 0;
+    /* Align markers to the top of the waveform container */
+    z-index: 1;
+    /* Ensure markers are above waveform */
+}
+
+.region-tooltip {
+    display: none;
+    position: absolute;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 100;
+    font-family: var(--font-poppins);
+}

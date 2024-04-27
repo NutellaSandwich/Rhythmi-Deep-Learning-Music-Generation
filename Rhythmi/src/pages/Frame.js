@@ -1,3 +1,13 @@
+/**
+ * Home Page:
+ * - Serves as the main navigation hub, linking to About, How it Works, Library, and Create pages.
+ * - Manages user authentication states with login and signup modals powered by contextual popups.
+ * - Provides quick access to user account management including login, signup, and logout functionalities.
+ * - Implements dynamic scroll animations for engaging UI transitions and IntersectionObserver for enhanced scroll-based actions.
+ * - Provides easy navigation and session management within a single, cohesive interface.
+ */
+
+
 import { useState, useCallback, useEffect, useContext } from "react";
 import LoginPopup from "../components/LoginPopup";
 import PortalPopup from "../components/PortalPopup";

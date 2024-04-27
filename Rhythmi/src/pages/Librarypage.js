@@ -1,3 +1,13 @@
+/**
+ * Librarypage Component:
+ * - Displays a list of music tracks created by the user, leveraging the SongItem component for each entry.
+ * - Integrates with AuthContext to handle authentication status and perform secure actions like fetching and deleting songs.
+ * - Utilizes IntersectionObserver for dynamic animations on scroll.
+ * - Provides functionality to play, edit, download, and delete tracks, enhancing user interaction and control over their content.
+ * - Uses React Router for navigation and Axios for server-side communications to manage songs effectively.
+ */
+
+
 import {useEffect, useContext, useState } from "react";
 import AboutContainer from "../components/AboutContainer";
 import styles from "./Librarypage.module.css";

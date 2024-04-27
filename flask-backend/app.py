@@ -10,7 +10,10 @@ from sqlalchemy.exc import IntegrityError
 import jwt
 from sqlalchemy import desc,asc
 from werkzeug.utils import secure_filename
-
+from scipy.signal import find_peaks
+import librosa
+import numpy as np
+import io
 
 
 app = Flask(__name__)
@@ -21,9 +24,9 @@ CORS(app, resources={r"*": {"origins": "http://localhost:3000",
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rhythmi.db'
 app.config['SECRET_KEY'] = 'hello'
 db = SQLAlchemy(app)
-#from models import User, Song
 
 
+#Defining Database Models for SQLite
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -42,8 +45,9 @@ class Song(db.Model):
         return f"Prompt: {self.prompt}"
     
 with app.app_context():
-    db.create_all()    
+    db.create_all() #Create tables
 
+# Route to generate music based on user inputs
 @app.route('/generate-music', methods=['POST'])
 @cross_origin(origin='http://localhost:3000')
 def generate_music_endpoint():
@@ -63,7 +67,7 @@ def generate_music_endpoint():
         file_path = os.path.join('/tmp', filename)
         file.save(file_path)
 
-    description = f"{genre} music: {prompt}"
+    description = f"{genre} music: {prompt}" #Prepare prompt for model
     
     try:
         decoded_token = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
@@ -72,14 +76,16 @@ def generate_music_endpoint():
         return jsonify({'message': 'Token expired'}), 401
     except jwt.InvalidTokenError:
         return jsonify({'message': 'Invalid token'}), 401
-
-    script_command = f'python ssh_script.py --description "{genre} music: {prompt}" --user-id {user_id} --duration {duration}'
+    
+    #Send to ssh script to send to model depending on if melody conditioning is wanted
+    script_command = f'python ssh_script.py --description "{genre} music: {prompt}" --user-id {user_id} --duration {duration}' 
     if file_path:
         script_command = f'python ssh_script.py --description "{genre} music: {prompt}" --user-id {user_id} --filePath "{file_path}" --duration {duration}'
 
-    
+    #Run ssh script
     subprocess.run(script_command, shell=True)
 
+    #Retrieve generated song
     most_recent_song = Song.query.filter_by(user_id=user_id).order_by(desc(Song.creation_date)).first()
 
     if file:
@@ -91,7 +97,7 @@ def generate_music_endpoint():
         return jsonify({'message': 'No song found for user'}), 404
 
 
-
+# User registration endpoint
 @app.route('/register', methods=['POST'])
 @cross_origin(origin='http://localhost:3000')
 def register():
@@ -114,6 +120,8 @@ def register():
 
     return jsonify({'message': 'User registered successfully'}),201
 
+
+# User login endpoint
 @app.route('/login', methods=['POST'])
 @cross_origin(origin='http://localhost:3000')
 def login():
@@ -131,7 +139,7 @@ def login():
     else:
         return jsonify({'message': 'Invalid credentials'}), 401
     
-
+# Retrieve a specific song by user and song ID
 @app.route('/get-song/<int:user_id>/<int:song_id>', methods =['GET'])
 def get_song(user_id, song_id):
     song = Song.query.filter_by(user_id=user_id, id=song_id).first()
@@ -139,6 +147,7 @@ def get_song(user_id, song_id):
         return Response(song.file_data, mimetype="audio/wav")
     return jsonify({'message': 'Song not found'}), 404
 
+# Retrieve all songs for a logged-in user
 @app.route('/user-songs', methods=['GET'])
 @cross_origin(origin='http://localhost:3000')
 def get_user_songs():
@@ -165,6 +174,7 @@ def get_user_songs():
 
     return jsonify(songs_data)
 
+
 @app.route('/get-prompt/<user_id>/<song_id>', methods =['GET'])
 @cross_origin(origin='http://localhost:3000')
 def get_prompt(user_id, song_id):
@@ -176,6 +186,7 @@ def get_prompt(user_id, song_id):
     else:
         return jsonify({'message': 'Song not found'}), 404 
 
+# Delete a specific song
 @app.route('/delete-song/<user_id>/<song_id>', methods=['DELETE'])
 @cross_origin(origin='http://localhost:3000/librarypage')
 def delete_song(user_id, song_id):
@@ -191,8 +202,52 @@ def delete_song(user_id, song_id):
     except Exception as e:
         print(f"Error deleting song: {e}")
         return 'Internal Server Error', 500
+    
+# Analyze specific features of a song
+@app.route('/analyze-song/<int:userID>/<int:songID>', methods=['GET'])
+def analyze_song(userID, songID):
+    song = Song.query.filter_by(user_id=userID, id=songID).first()
+    if not song:
+        return jsonify({'message': 'Song not found'}), 404
+    
+    file_data = io.BytesIO(song.file_data)
 
+    try:
+        y, sr = librosa.load(file_data, sr=None)
+        duration = librosa.get_duration(y=y, sr=sr)
+        S = np.abs(librosa.stft(y))
+        intensity = librosa.feature.rms(S=S).flatten()
 
+        peak, trough = find_peak_and_trough(intensity, sr)
+
+        tempo, _ = librosa.beat.beat_track(y=y, sr=sr)
+        tempo = round(tempo)
+        chroma = librosa.feature.chroma_cqt(y=y, sr=sr)
+
+        tonic_index = np.argmax(np.mean(chroma, axis=1))
+        key_names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+        tonic = key_names[tonic_index]
+
+        return jsonify({'peak': peak, 'trough': trough, 'duration':duration, 'bpm': tempo, 'key': tonic})
+    except Exception as e:
+        print(f"Error analyzing song: {e}")
+        return jsonify({'message': 'Error analyzing the song'}), 500
+
+# Peaks and troughs for dynamics analysis
+def find_peak_and_trough(intensity, sr):
+    hop_length = 512  # Default hop length for librosa.stft, unless specified otherwise
+    frame_time = hop_length / sr  # Time per frame in seconds
+    
+    peak_index = np.argmax(intensity)
+    trough_index = np.argmin(intensity)
+    
+    peak_time = peak_index * frame_time
+    trough_time = trough_index * frame_time
+    
+    peak = {'time': peak_time, 'value': intensity[peak_index]}
+    trough = {'time': trough_time, 'value': intensity[trough_index]}
+    
+    return peak, trough
 
 if __name__ == '__main__':
     app.run()

@@ -1,3 +1,13 @@
+/**
+ * Generation Component:
+ * - Manages the music generation process using parameters such as prompt, genre, and optional file upload.
+ * - Submits generation requests to the backend via Axios with FormData for handling multipart data.
+ * - Tracks the generation status and navigates to the song page upon successful music creation.
+ * - Utilizes IntersectionObserver for dynamic scroll animations, enhancing user interaction.
+ * - Displays a visual representation of the generation process using the SoundWave component.
+ */
+
+
 import { useEffect, useState } from "react";
 import ContainerFrame from "../components/ContainerFrame";
 import SoundWave from "../components/SoundWave";

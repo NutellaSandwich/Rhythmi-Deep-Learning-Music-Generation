@@ -1,3 +1,13 @@
+/**
+ * SongItem Component:
+ * - Displays a single song item with genre, prompt, and creation date.
+ * - Provides an audio player for song playback using a dynamically fetched audio source.
+ * - Includes action buttons for editing, downloading, and deleting a song.
+ * - Handles deletion of a song with confirmation and updates the UI based on the deletion status.
+ * - Utilizes navigation to transition to the song edit page with preloaded song data.
+ */
+
+
 import React, {useEffect, useState,useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SongItem.module.css';

@@ -1,3 +1,12 @@
+/**
+ * About Page Component:
+ * - Displays the platform's commitment to making music composition accessible to all users.
+ * - Explains the platform's vision, emphasizing music as a universal language.
+ * - Includes Header for navigation and ComposeCard for user interaction.
+ * - Uses IntersectionObserver for animating elements on scroll for an engaging UI.
+ * - Manages user authentication state via useContext to handle login states and potentially logout actions.
+ */
+
 import { useCallback, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";

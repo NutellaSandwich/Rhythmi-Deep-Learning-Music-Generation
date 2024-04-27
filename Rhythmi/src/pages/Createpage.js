@@ -1,3 +1,13 @@
+/**
+ * Createpage Component:
+ * - Provides an interactive interface for users to configure and submit details for music generation.
+ * - Includes input fields for genre selection, song description, and optional file upload for melody reference.
+ * - Utilizes React hooks for state management, React Router for navigation, and context for authentication state.
+ * - Features dynamic input handling, user feedback on selection, and a submission process that navigates to the generation page upon successful input validation.
+ * - Employs IntersectionObserver for scroll animations to enhance user experience.
+ */
+
+
 import { useCallback, useEffect, useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import AboutSection from "../components/AboutSection";

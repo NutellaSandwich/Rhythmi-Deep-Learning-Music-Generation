@@ -1,3 +1,13 @@
+/**
+ * PortalPopup Component:
+ * - Renders children components inside a modal overlay that can be customized with positioning and styling.
+ * - Uses createPortal to mount the modal contents to a specific DOM node outside the regular DOM hierarchy.
+ * - Manages visibility and positioning based on props like placement, zIndex, and overlayColor.
+ * - Provides functionality to close the popup when clicking outside of the content area.
+ * - Responsive to window resize and scroll events to adjust positioning dynamically.
+ */
+
+
 import { useMemo, useCallback, useState, useRef, useEffect } from "react";
 
 import { createPortal } from "react-dom";

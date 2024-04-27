@@ -1,3 +1,13 @@
+/**
+ * AboutContainer Component:
+ * - Provides navigation links to various pages like About, Create, and How it Works.
+ * - Manages user authentication states with options to log in, sign up, or log out.
+ * - Handles opening and closing of Login and Signup popups using state and context.
+ * - Implements scroll animations for visual elements on the page.
+ * - Redirects users based on their interaction with navigation links.
+ */
+
+
 import { useState, useCallback, useEffect, useContext } from "react";
 import LoginPopup from "./LoginPopup";
 import PortalPopup from "./PortalPopup";

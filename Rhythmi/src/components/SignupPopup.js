@@ -1,3 +1,13 @@
+/**
+ * SignupPopup Component:
+ * - Provides a form for user registration including email and password fields.
+ * - Handles user signup through Axios POST request to a server endpoint.
+ * - Offers the option to switch to a LoginPopup if the user already has an account.
+ * - Uses IntersectionObserver to apply scroll animations to the popup.
+ * - Closes the popup upon successful registration or when an external close function is triggered.
+ */
+
+
 import { useState, useCallback, useEffect } from "react";
 import LoginPopup from "./LoginPopup";
 import styles from "./SignupPopup.module.css";
